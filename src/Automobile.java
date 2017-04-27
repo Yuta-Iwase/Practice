@@ -3,6 +3,7 @@ public class Automobile {
 	// これらは、コンストラクタの引数で定義される。
 	double longitude,latitude,angle,fuel;
 	
+	
 	// 燃費定数
 	final double c1,c2;
 	
