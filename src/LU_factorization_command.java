@@ -95,7 +95,7 @@ public class LU_factorization_command {
 			solveCommand += (vars.get(i) + ",") ;
 		}
 		solveCommand += (vars.get(vars.size()-1));
-		solveCommand += ("}][[1]];"); // [[1]]はなぜか1x4x4のテンソル化してしまうので、それを戻す操作
+		solveCommand += ("}][[1]];"); // [[1]]はなぜか1xNxNのテンソル化してしまうので、NxNの行列へ戻す操作
 		System.out.println("subL=L/." + solveCommand);
 		System.out.println("subU=U/." + solveCommand);
 		System.out.print("MatrixForm[Simplify[subL.subU]]");
