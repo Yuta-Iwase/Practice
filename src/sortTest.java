@@ -31,7 +31,7 @@ public class sortTest {
 		
 		System.out.println();
 		
-		int[][] sorted_a = new compTest(a,1,false).getArray();
+		int[][] sorted_a = new compTest(a,1,false).getArray_int();
 		for(int i=0;i<sorted_a.length;i++){
 			System.out.println(sorted_a[i][0] + "\t" + sorted_a[i][1]);
 		}
