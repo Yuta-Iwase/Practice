@@ -4,7 +4,8 @@ import java.io.PrintWriter;
 public class LotkaVolterra{
 	public static void main(String[] args) throws Exception{
 		// パラメータ定義
-		int T = 10;
+		int T = 100;
+		double delta_t = 0.1;
 		double u0 = 500;
 		double v0 = 10000;
 		double a = 10;
@@ -19,8 +20,8 @@ public class LotkaVolterra{
 		pw_v.println(0 + "," + v);
 		double next_u, next_v;
 		for(int i=1;i<=T;i++){
-			next_u = (u + u*(v-b));
-			next_v = (v + v*(a-u));
+			next_u = u + delta_t*v;
+			next_v = -delta_t*u + (1-delta_t*delta_t)*v;
 			u = next_u;
 			v = next_v;
 			pw_u.println(i + "," + u);
