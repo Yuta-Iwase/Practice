@@ -16,14 +16,21 @@ public class LotkaVolterra{
 		PrintWriter pw_v = new PrintWriter(new File("LotkaVolterra/prey.dat"));
 		double u = u0;
 		double v = v0;
+		// t=0の出力
 		pw_u.println(0 + "\t" + u);
 		pw_v.println(0 + "\t" + v);
+		System.out.println(0 + "\t" + u);
+		System.out.println(0 + "\t" + v);
+		System.out.println();
+		// t=1からTまでの出力
 		double next_u, next_v;
 		for(int i=1;i<=T;i++){
+			// 区分オイラー法
 			next_u = u / (1 - delta_t*(v-b));
 			next_v = v*(1+delta_t*a) - delta_t*v*next_u;
 			u = next_u;
 			v = next_v;
+			// 出力
 			pw_u.println(i + "\t" + u);
 			pw_v.println(i + "\t" + v);
 			System.out.println(u);
