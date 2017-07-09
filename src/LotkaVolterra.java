@@ -5,7 +5,7 @@ public class LotkaVolterra{
 	public static void main(String[] args) throws Exception{
 		// パラメータ定義
 		int T = 100;
-		double delta_t = 0.01;
+		double delta_t = 0.02;
 		double u0 = 50;
 		double v0 = 100;
 		double a = 60;
@@ -24,15 +24,15 @@ public class LotkaVolterra{
 		System.out.println();
 		// t=1からTまでの出力
 		double next_u, next_v;
-		for(int i=1;i<=T;i++){
+		for(int t=1;t<=T;t++){
 			// 区分オイラー法
 			next_u = u / (1 - delta_t*(v-b));
 			next_v = v*(1+delta_t*a) - delta_t*v*next_u;
 			u = next_u;
 			v = next_v;
 			// 出力
-			pw_u.println(i + "\t" + u);
-			pw_v.println(i + "\t" + v);
+			pw_u.println(t + "\t" + u);
+			pw_v.println(t + "\t" + v);
 			System.out.println(u);
 			System.out.println(v);
 			System.out.println();
