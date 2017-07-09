@@ -5,7 +5,7 @@ public class LotkaVolterra{
 	public static void main(String[] args) throws Exception{
 		// パラメータ定義
 		int T = 100;
-		double delta_t = 0.02;
+		double delta_t = 0.01;
 		double u0 = 50;
 		double v0 = 100;
 		double a = 60;
