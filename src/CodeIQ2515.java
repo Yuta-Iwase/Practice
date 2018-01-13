@@ -36,10 +36,7 @@ public class CodeIQ2515 {
 		}
 
 		ArrayList<pattern> queue = new ArrayList<>();
-		queue.add(new pattern(ini_c500, ini_c100, ini_c50, ini_c10, ini_c5, ini_c1));
-//		ArrayList<pattern> visited = new ArrayList<>();
-//		visited.add(new pattern(ini_c500, ini_c100, ini_c50, ini_c10, ini_c5, ini_c1));
-		boolean visit;
+		queue.add(new pattern(ini_c500, ini_c100, ini_c50, ini_c10, ini_c5, ini_c1, 500));
 		int c=1;
 
 		while(!queue.isEmpty()) {
@@ -48,26 +45,8 @@ public class CodeIQ2515 {
 
 			for(int i=0;i<currentPattern.stubList.size();i++) {
 				pattern exchangedPattern = currentPattern.exchange(currentPattern.stubList.get(i));
-//				exchangedPattern.print();
-
-				visit = false;
-//				for(int j=0;j<visited.size();j++) {
-//					if(exchangedPattern.comp(visited.get(j))) {
-//						visit = true;
-//						break;
-//					}
-//				}
-				for(int j=0;j<queue.size();j++) {
-					if(exchangedPattern.comp(queue.get(j))) {
-						visit = true;
-						break;
-					}
-				}
-				if(!visit) {
-					queue.add(exchangedPattern);
-//					visited.add(exchangedPattern);
-					c++;
-				}
+				queue.add(exchangedPattern);
+				c++;
 			}
 		}
 
@@ -80,14 +59,16 @@ public class CodeIQ2515 {
 
 class pattern{
 	int c500,c100,c50,c10,c5,c1;
+	int byEx;
 	ArrayList<Integer> stubList;
-	public pattern(int a,int b,int c,int d,int e,int f) {
+	public pattern(int a,int b,int c,int d,int e,int f,int x) {
 		c500=a;
 		c100=b;
 		c50=c;
 		c10=d;
 		c5=e;
 		c1=f;
+		byEx = x;
 
 		stubList = new ArrayList<>();
 		calcStub();
@@ -95,19 +76,19 @@ class pattern{
 
 	void calcStub() {
 		stubList.clear();
-		if(c500>0) stubList.add(500);
-		if(c100>0) stubList.add(100);
-		if(c50>0) stubList.add(50);
-		if(c10>0) stubList.add(10);
-		if(c5>0) stubList.add(5);
+		if(c500>0 && byEx>=500) stubList.add(500);
+		if(c100>0 && byEx>=100) stubList.add(100);
+		if(c50>0 && byEx>=50) stubList.add(50);
+		if(c10>0 && byEx>=10) stubList.add(10);
+		if(c5>0 && byEx>=5) stubList.add(5);
 	}
 
 	pattern exchange(int m) {
-		if(m==500) return (new pattern(c500-1, c100+5, c50, c10, c5, c1));
-		if(m==100) return (new pattern(c500, c100-1, c50+2, c10, c5, c1));
-		if(m==50) return (new pattern(c500, c100, c50-1, c10+5, c5, c1));
-		if(m==10) return (new pattern(c500, c100, c50, c10-1, c5+2, c1));
-		if(m==5) return (new pattern(c500, c100, c50, c10, c5-1, c1+5));
+		if(m==500) return (new pattern(c500-1, c100+5, c50, c10, c5, c1, m));
+		if(m==100) return (new pattern(c500, c100-1, c50+2, c10, c5, c1, m));
+		if(m==50) return (new pattern(c500, c100, c50-1, c10+5, c5, c1, m));
+		if(m==10) return (new pattern(c500, c100, c50, c10-1, c5+2, c1, m));
+		if(m==5) return (new pattern(c500, c100, c50, c10, c5-1, c1+5, m));
 		return null;
 	}
 
