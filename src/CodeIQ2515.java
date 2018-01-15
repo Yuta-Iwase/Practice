@@ -1,4 +1,4 @@
-// https://codeiq.jp/q/2513
+// https://codeiq.jp/q/2515
 import java.util.ArrayList;
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-// https://codeiq.jp/q/2513
+// https://codeiq.jp/q/2514
 import java.util.Scanner;
 
 public class CodeIQ2514 {
