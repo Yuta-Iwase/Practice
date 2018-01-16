@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class scannerTest {
 
 	public static void main(String[] args) {
-		System.out.println(test4());
+		System.out.println(test5());
 	}
 
  	/**
@@ -142,6 +142,25 @@ public class scannerTest {
 			try {
 				x = Integer.parseInt(s);
 			}catch (Exception e) {}
+		}while(!(0<=x && x<=2));
+
+		scan.close();
+		return x;
+	}
+
+
+	static int test5() {
+		System.out.println("run test5...");
+		Scanner scan = new Scanner(System.in);
+		int x;
+
+		do {
+			System.out.print("write anything$ ");
+			while(!scan.hasNextInt()) {
+				System.out.print("write anything$ ");
+				scan.next();
+			}
+			x = scan.nextInt();
 		}while(!(0<=x && x<=2));
 
 		scan.close();
