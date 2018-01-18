@@ -61,8 +61,6 @@ public class CodeIQ3475 {
 		}
 
 		ArrayList<Node> queue = new ArrayList<>();
-
-
 		int cc_count = 0;
 		loop1: while(true){
 			loop2: for(int i=0;i<height;i++){
