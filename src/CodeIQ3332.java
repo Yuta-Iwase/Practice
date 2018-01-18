@@ -1,6 +1,5 @@
-import java.util.Scanner;
-
 // https://codeiq.jp/q/3332
+import java.util.Scanner;
 
 public class CodeIQ3332 {
 
