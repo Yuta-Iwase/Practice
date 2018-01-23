@@ -184,6 +184,8 @@ public class GraduationResearchMaterial2 {
 		PrintWriter udBpw = new PrintWriter(new File(fileName2));
 		PrintWriter aBpw = new PrintWriter(new File(fileName3));
 
+		PrintWriter pw_ex = new PrintWriter(new File(fileName3 + "aaaaaaaaaaaaa.txt"));
+
 		ArrayList<Double> printRateArrayList = new ArrayList<Double>();
 		for (int i = 0; i < printRateList.length; i++) {
 			printRateArrayList.add(printRateList[i]);
@@ -210,6 +212,7 @@ public class GraduationResearchMaterial2 {
 		int componentDBSize[] = new int[N]; // 一時的な連結成分置き場(直接破壊されている頂点ver)
 		int componentUDBSize[] = new int[N]; // 一時的な連結成分置き場(間接破壊されている頂点ver)
 		int componentABSize[] = new int[N]; // 一時的な連結成分置き場(破壊されている頂点ver)
+		int componentNormalSize[] = new int[N]; // ☆
 
 		int x = 0; // 配列componentの記録場所を移動させるための変数
 		int y = 0; // 配列componentの記録場所を移動させるための変数(破壊されている頂点ver)
@@ -229,6 +232,8 @@ public class GraduationResearchMaterial2 {
 			double sumD = 0; // f毎の平均(直接)破壊最大連結成分を出すための変数
 			double sumUD = 0; // f毎の平均(間接)破壊最大連結成分を出すための変数
 			double sumAB = 0; // f毎の平均(全て)破壊最大連結成分を出すための変数
+			double sumN = 0.0; // ☆
+
 			for (int t = 0; t < loop; t++) {
 				for (int i = 0; i < N; i++) {
 					visitDBQ[i] = true;
@@ -421,46 +426,46 @@ public class GraduationResearchMaterial2 {
 
 					// TODO ☆生存ノードのLCC_size を計算
 					if (!NormalNodeList.isEmpty()) {
-						int v0 = undirectBrokenList.get(0);
+						int v0 = NormalNodeList.get(0);
 						memberList.add(v0);
-						visitUDBQ[v0] = true;
+						visitNor[v0] = true;
 						queue.add(v0);
-						while (!undirectBrokenList.isEmpty()) {
+						while (!NormalNodeList.isEmpty()) {
 							if (queue.isEmpty()) {
-								componentUDBSize[y] = memberList.size();
+								componentNormalSize[y] = memberList.size();
 								memberList.clear();
-								vi = undirectBrokenList.get(0);
-								visitUDBQ[vi] = true;
+								vi = NormalNodeList.get(0);
+								visitNor[vi] = true;
 								memberList.add(vi);
-								undirectBrokenList.remove(undirectBrokenList.indexOf(vi));
+								NormalNodeList.remove(NormalNodeList.indexOf(vi));
 								y++;
 							} else {
 								vi = queue.get(0);
-								undirectBrokenList.remove(undirectBrokenList.indexOf(vi));
+								NormalNodeList.remove(NormalNodeList.indexOf(vi));
 								queue.remove(0);
 							}
 							for (int i = 0; i < degreeList[vi]; i++) {
 								vj = neighborList[addressList[vi] + i];
-								if ((visitUDBQ[vj] == false) && (undirectBrokenList.indexOf(vj) != -1)) {
+								if ((visitNor[vj] == false) && (NormalNodeList.indexOf(vj) != -1)) {
 									queue.add(vj);
 									memberList.add(vj);
-									visitUDBQ[vj] = true;
+									visitNor[vj] = true;
 								}
 							}
 						}
-						componentUDBSize[y] = memberList.size();
-						int undirectBrokenLCS = componentUDBSize[0];
+						componentNormalSize[y] = memberList.size();
+						int normalLCC_Size = componentNormalSize[0];
 						for (int i = 0; i <= y; i++) {
-							if (undirectBrokenLCS < componentUDBSize[i]) {
-								undirectBrokenLCS = componentUDBSize[i];
+							if (normalLCC_Size < componentNormalSize[i]) {
+								normalLCC_Size = componentNormalSize[i];
 							}
 						}
 						// sizeList.add();
-						undirectBrokenList.clear();
+						NormalNodeList.clear();
 						memberList.clear();
 						y = 0;
-						sumUD += (double) undirectBrokenLCS;
-					} // 間接破壊の最大連結成分終了
+						sumN += (double) normalLCC_Size;
+					} // ☆N-compの探索終了
 					memberList.clear();
 
 				}
@@ -519,6 +524,8 @@ public class GraduationResearchMaterial2 {
 			// System.out.println("AllBroken"+f + "\t" + sumAB/loop);
 			aBpw.println(f + "\t" + sumAB / loop);
 
+			pw_ex.println(f + "\t" + sumN / loop);
+
 			if (printRateArrayList.size() > 0) {
 				if (f == printRateArrayList.get(0)) {
 					PrintWriter pw4 = new PrintWriter(new File(destructionRateName + f + ".txt"));
@@ -541,6 +548,9 @@ public class GraduationResearchMaterial2 {
 		dBpw.close();
 		udBpw.close();
 		aBpw.close();
+
+		pw_ex.close();
+
 		// System.out.println(sizeList);
 		pw3.close();
 	}
