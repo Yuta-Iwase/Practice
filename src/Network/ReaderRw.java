@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class ReaderRw {
 	public static void main(String[] args) throws Exception {
-		String fileName = "amazon.txt";
+		String fileName = "caida2.csv";
 		Scanner scan = new Scanner(new File(fileName));
 		double rewiringProbability = 0.05;
 		int typeSelectorswitch = 1;			//0:各頂点毎、1:全確率破壊→連鎖破壊、2:0と1を同じグラフで行う
-		int N = 334863;
-		int M = 925872;
+		int N = 26475;
+		int M = 53381;
 		int[][] pairList = new int[M][2];
 		int[] degreeList = new int[N];
 		int[] neighborList = new int[2 * M];
@@ -23,7 +23,7 @@ public class ReaderRw {
 			neighborMatrix.add(new ArrayList<Integer>());
 		}
 
-		scan.nextLine();
+//		scan.nextLine();
 		// scan.nextLine();
 		// pairList
 		int currentLine = 0;
@@ -31,8 +31,8 @@ public class ReaderRw {
 			int left = scan.nextInt();
 			int right = scan.nextInt();
 			// System.out.println(left + "\t" + right);
-			pairList[currentLine][0] = left - 1;
-			pairList[currentLine][1] = right - 1;
+			pairList[currentLine][0] = left;
+			pairList[currentLine][1] = right;
 			currentLine += 1;
 		}
 		// degreeList
@@ -66,9 +66,12 @@ public class ReaderRw {
 		}
 
 		System.out.println("check");
-		// for (int i = 0; i < 2 * m; i++) {
-		// System.out.println(i + "\t" + neighborList[i]);
-		// }
+//		PrintWriter xpw = new PrintWriter(new File("aaaaaa.txt"));
+//		 for (int i = 0; i < 2 * M; i++) {
+//		 System.out.println(i + "\t" + neighborList[i]);
+//		 xpw.println(i + "\t" + neighborList[i]);
+//		 }
+//		 xpw.close();
 		scan.close();
 //		// リワイヤリング
 //		Sfmt rnd = new Sfmt((int) System.currentTimeMillis());
@@ -120,6 +123,9 @@ public class ReaderRw {
 //			} while (!rewiringFlag);
 //
 //		}
+
+		System.out.println("debag:line 124" );
+
 		double []printRateList = {0.1,0.2};
 		String folderName1 = "RealDate";
 		new File(folderName1).mkdirs();
@@ -142,6 +148,9 @@ public class ReaderRw {
 			String type2fileName1 = "type2DBN,LCSvert";
 			String type2fileName2 = "type2UDBN,LCSver";
 			String type2fileName3 = "type2ABN,LCSver";
+
+			System.out.println("debag:line 149" );
+
 			obj2.PercolationExperiment2(true,true,100,100,N, degreeList, neighborList, addressList,
 					folderName1+"type2loop100C.txt",folderName1+"type2loop100CDestRate",
 					folderName2+type2fileName1,folderName2+type2fileName2,folderName2+type2fileName3,printRateList);

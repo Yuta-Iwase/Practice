@@ -1,9 +1,9 @@
 package Network;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 //パーコレーション方法その２
@@ -16,7 +16,7 @@ public class GraduationResearchMaterial2 {
 
 		Random random = new Random();
 
-		int N = 50;
+		int N = 53381;
 		int kmin = 2;
 		int kcut = (int) (0.1 * N);
 		double gan = 2.7;
@@ -197,10 +197,12 @@ public class GraduationResearchMaterial2 {
 		ArrayList<Integer> directBrokenList = new ArrayList<Integer>(); // 確率fで直接破壊された頂点を記録。
 		ArrayList<Integer> undirectBrokenList = new ArrayList<Integer>(); // 連鎖破壊に巻き込まれた頂点を記録。
 		ArrayList<Integer> BrokenList = new ArrayList<Integer>(); // 破壊された頂点を記録。
+		ArrayList<Integer> NormalNodeList = new ArrayList<Integer>(); // ☆破壊されていない頂点のリスト
 		boolean[] visitQ = new boolean[N]; // 訪問済み頂点チェック
 		boolean[] visitDBQ = new boolean[N]; // 訪問済み頂点チェック(直接破壊されている頂点ver)
 		boolean[] visitUDBQ = new boolean[N]; // 訪問済み頂点チェック(間接破壊されている頂点ver)
 		boolean[] visitABQ = new boolean[N]; // 訪問済み頂点チェック(破壊されている頂点ver)
+		boolean[] visitNor = new boolean[N]; // ☆
 
 		int vi;
 		int vj;
@@ -266,6 +268,15 @@ public class GraduationResearchMaterial2 {
 						}
 					}
 				}
+				// ☆ココまでを踏まえて生存ノードのリストを構築
+				for(int nodeIndex=0;nodeIndex<N;nodeIndex++) {
+					if(visitQ[nodeIndex]) {
+						NormalNodeList.add(nodeIndex);
+						visitNor[nodeIndex] = true;
+					}else {
+						visitNor[nodeIndex] = false;
+					}
+				}
 
 				memberList.clear();
 				// ここから破壊された頂点の最大連結成分計算
@@ -313,6 +324,7 @@ public class GraduationResearchMaterial2 {
 						sumD += (double) directBrokenLCS;
 					} // 直接破壊の最大連結成分終了
 					memberList.clear();
+
 					// 次に間接破壊された頂点の連結成分を計算
 					if (!undirectBrokenList.isEmpty()) {
 						int v0 = undirectBrokenList.get(0);
@@ -356,6 +368,7 @@ public class GraduationResearchMaterial2 {
 						sumUD += (double) undirectBrokenLCS;
 					} // 間接破壊の最大連結成分終了
 					memberList.clear();
+
 					// ここから破壊された全ての頂点の最大連結成分計算
 					if (!BrokenList.isEmpty()) {
 						int v0 = BrokenList.get(0);
@@ -402,6 +415,53 @@ public class GraduationResearchMaterial2 {
 						y = 0;
 						sumAB += (double) BrokenLCS;
 					}
+					memberList.clear();
+
+
+
+					// TODO ☆生存ノードのLCC_size を計算
+					if (!NormalNodeList.isEmpty()) {
+						int v0 = undirectBrokenList.get(0);
+						memberList.add(v0);
+						visitUDBQ[v0] = true;
+						queue.add(v0);
+						while (!undirectBrokenList.isEmpty()) {
+							if (queue.isEmpty()) {
+								componentUDBSize[y] = memberList.size();
+								memberList.clear();
+								vi = undirectBrokenList.get(0);
+								visitUDBQ[vi] = true;
+								memberList.add(vi);
+								undirectBrokenList.remove(undirectBrokenList.indexOf(vi));
+								y++;
+							} else {
+								vi = queue.get(0);
+								undirectBrokenList.remove(undirectBrokenList.indexOf(vi));
+								queue.remove(0);
+							}
+							for (int i = 0; i < degreeList[vi]; i++) {
+								vj = neighborList[addressList[vi] + i];
+								if ((visitUDBQ[vj] == false) && (undirectBrokenList.indexOf(vj) != -1)) {
+									queue.add(vj);
+									memberList.add(vj);
+									visitUDBQ[vj] = true;
+								}
+							}
+						}
+						componentUDBSize[y] = memberList.size();
+						int undirectBrokenLCS = componentUDBSize[0];
+						for (int i = 0; i <= y; i++) {
+							if (undirectBrokenLCS < componentUDBSize[i]) {
+								undirectBrokenLCS = componentUDBSize[i];
+							}
+						}
+						// sizeList.add();
+						undirectBrokenList.clear();
+						memberList.clear();
+						y = 0;
+						sumUD += (double) undirectBrokenLCS;
+					} // 間接破壊の最大連結成分終了
+					memberList.clear();
 
 				}
 				memberList.clear();
@@ -475,7 +535,7 @@ public class GraduationResearchMaterial2 {
 				}
 			}
 			if ((fIndex + 1) % 10 == 0) {
-				System.out.println("type2進捗度" + (fIndex + 1) + "%");
+				System.out.println("type2進捗度" + (fIndex + 1) + "%: " + new Date().toString());
 			}
 		}
 		dBpw.close();
