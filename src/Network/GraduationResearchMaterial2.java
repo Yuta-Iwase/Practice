@@ -276,9 +276,9 @@ public class GraduationResearchMaterial2 {
 				// ☆ココまでを踏まえて生存ノードのリストを構築
 				for(int nodeIndex=0;nodeIndex<N;nodeIndex++) {
 					if(visitQ[nodeIndex]) {
-						NormalNodeList.add(nodeIndex);
 						visitNor[nodeIndex] = true;
 					}else {
+						NormalNodeList.add(nodeIndex);
 						visitNor[nodeIndex] = false;
 					}
 				}
