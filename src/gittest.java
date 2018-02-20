@@ -5,6 +5,7 @@ public class gittest {
 		// TODO 自動生成されたメソッド・スタブ
 
 
+
 	}
 
 }
