@@ -1,4 +1,6 @@
-// g—p‚·‚éƒf[ƒ^‚ÌƒpƒX‚ğ“ü—Í‚·‚éB
+package Ohello;
+
+// ä½¿ç”¨ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ãƒ‘ã‚¹ã‚’å…¥åŠ›ã™ã‚‹ã€‚
 
 import java.net.URL;
 
@@ -9,43 +11,43 @@ public class Resource {
 	static URL BPath,WPath;
 	static public ImageIcon blackIcon, whiteIcon, boardIcon;
 	public Icon imgBo,imgBa;
-	
-	// İ’u‰Â”\ƒAƒCƒRƒ“‚ÌƒpƒX
-	// Black(White)SettblePath ‚Ì—ª
+
+	// è¨­ç½®å¯èƒ½ã‚¢ã‚¤ã‚³ãƒ³ã®ãƒ‘ã‚¹
+	// Black(White)SettblePath ã®ç•¥
 	static URL BSPath,WSPath;
-	
+
 	static URL BigBangPath, RemoveOnePath, ChargePath, SuperNovaPath;
 	static URL N_BigBangPath, N_RemoveOnePath, N_ChargePath, N_SuperNovaPath;
-	
+
 	public Resource() {
-		// İ’u‰Â”\ƒAƒCƒRƒ“‚ÌƒpƒX‚Ì‰Šú‰»
+		// è¨­ç½®å¯èƒ½ã‚¢ã‚¤ã‚³ãƒ³ã®ãƒ‘ã‚¹ã®åˆæœŸåŒ–
 		BSPath = getClass().getResource("img/settable-b.png");
 		WSPath = getClass().getResource("img/settable-w.png");
-		
+
 		BPath = getClass().getResource("img/Black.png");
 		WPath = getClass().getResource("img/White.png");
-		
+
 		BigBangPath = getClass().getResource("img/BigBang.png");
 		RemoveOnePath = getClass().getResource("img/RemoveOne.png");
 		ChargePath = getClass().getResource("img/Charge.png");
 		SuperNovaPath = getClass().getResource("img/SuperNova.png");
-		
+
 		N_BigBangPath = getClass().getResource("img/N_BigBang.png");
 		N_RemoveOnePath = getClass().getResource("img/N_RemoveOne.png");
 		N_ChargePath = getClass().getResource("img/N_Charge.png");
 		N_SuperNovaPath = getClass().getResource("img/N_SuperNova.png");
 
-		
+
 
 //		blackIcon = new ImageIcon(BPath);
 //		whiteIcon = new ImageIcon(WPath);
 //		boardIcon = new ImageIcon("");
 	}
-	
 
-	// ¦unew ImageIconwgetResource—R—ˆ‚ÌƒpƒXxv‚Í”ñí‚ÉŠëŒ¯
 
-	
+	// â€»ã€Œnew ImageIconã€getResourceç”±æ¥ã®ãƒ‘ã‚¹ã€ã€ã¯éå¸¸ã«å±é™º
+
+
 	public void changeBlack(int x, int y){
 		Othello.buttonArray[x][y].setIcon(new ImageIcon(BPath));
 	}
@@ -58,7 +60,7 @@ public class Resource {
 	public void setBorder(){
 		Othello.border.setIcon(new ImageIcon(getClass().getResource("img/border.png")));
 	}
-	
+
 	public void setSign(){
 		Othello.sign.setIcon(new ImageIcon(getClass().getResource("img/sign.png")));
 	}
@@ -73,19 +75,19 @@ public class Resource {
 		Othello.RemoveOneButton.setIcon(new ImageIcon(RemoveOnePath));
 		Othello.ChargeButton.setIcon(new ImageIcon(ChargePath));
 		Othello.SuperNovaButton.setIcon(new ImageIcon(SuperNovaPath));
-		
+
 	}
 	public void setCannotUseAbility(){
 		Othello.BigBangButton.setIcon(new ImageIcon(N_BigBangPath));
 		Othello.RemoveOneButton.setIcon(new ImageIcon(N_RemoveOnePath));
 		Othello.ChargeButton.setIcon(new ImageIcon(N_ChargePath));
 		Othello.SuperNovaButton.setIcon(new ImageIcon(N_SuperNovaPath));
-		
+
 	}
 	public void setMenu(){
 		Othello.menu.setIcon(new ImageIcon(getClass().getResource("img/menu.png")));
 	}
-	
+
 	public void setbkground(){
 		Othello.bkground.setIcon(new ImageIcon(getClass().getResource("img/bkground.png")));
 	}

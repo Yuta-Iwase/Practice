@@ -1,16 +1,18 @@
+package Ohello;
+
 
 public class SuperNova {
 	public static boolean SuperNovaFlag;
 	public SuperNova() {
 		SuperNovaFlag = true;
-		
-		// g—p‰ñ”‚ğ1Œ¸‚ç‚·
-		// ‚±‚±‚Å‚Íƒ^[ƒ“‘—‚è‚ğs‚í‚È‚¢‚Ì‚ª“Á’¥
+
+		// ä½¿ç”¨å›æ•°ã‚’1æ¸›ã‚‰ã™
+		// ã“ã“ã§ã¯ã‚¿ãƒ¼ãƒ³é€ã‚Šã‚’è¡Œã‚ãªã„ã®ãŒç‰¹å¾´
 		switch(Othello.setStatus){
 		case -1:
 			Othello.spB --;
 			break;
-		
+
 		case 1:
 			Othello.spW --;
 			break;

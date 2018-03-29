@@ -1,3 +1,5 @@
+package Ohello;
+
 import javax.swing.ImageIcon;
 
 
@@ -6,8 +8,8 @@ public class CheckSettable {
 	static boolean[][] settableB = new boolean[8][8];
 	static boolean[][] settableW = new boolean[8][8];
 
-	// ‘Sˆæİ’u‰Â”\ƒtƒ‰ƒO
-	// ŠeF‚É‚Â‚¢‚Ä”z’u‚Å‚«‚éêŠ‚ª1ƒJŠ‚Å‚à‚ ‚é‚ÆA^‚ğ•Ô‚·
+	// å…¨åŸŸè¨­ç½®å¯èƒ½ãƒ•ãƒ©ã‚°
+	// å„è‰²ã«ã¤ã„ã¦é…ç½®ã§ãã‚‹å ´æ‰€ãŒ1ã‚«æ‰€ã§ã‚‚ã‚ã‚‹ã¨ã€çœŸã‚’è¿”ã™
 	static boolean AllSetB;
 	static boolean AllSetW;
 
@@ -23,8 +25,8 @@ public class CheckSettable {
 	public void checkSettable() {
 		System.out.println("to start checking :by CheckSettable.class");
 
-		// İ’u‰Â”\ƒtƒ‰ƒO‚Ì‰Šú‰»
-		// ¦‚±‚Ìƒtƒ‰ƒO‚ÍŒÄ‚Î‚ê‚é‚½‚Ñ‚É‰Šú‰»‚³‚ê‚é•K—v‚ª‚ ‚é
+		// è¨­ç½®å¯èƒ½ãƒ•ãƒ©ã‚°ã®åˆæœŸåŒ–
+		// â€»ã“ã®ãƒ•ãƒ©ã‚°ã¯å‘¼ã°ã‚Œã‚‹ãŸã³ã«åˆæœŸåŒ–ã•ã‚Œã‚‹å¿…è¦ãŒã‚ã‚‹
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
 				settableB[x][y] = false;
@@ -32,8 +34,8 @@ public class CheckSettable {
 			}
 		}
 
-		// ‘Sˆæİ’u‰Â”\ƒtƒ‰ƒO‚Ì‰Šú‰»
-		// ¦‚±‚Ìƒtƒ‰ƒO‚ÍŒÄ‚Î‚ê‚é‚½‚Ñ‚É‰Šú‰»‚³‚ê‚é•K—v‚ª‚ ‚é
+		// å…¨åŸŸè¨­ç½®å¯èƒ½ãƒ•ãƒ©ã‚°ã®åˆæœŸåŒ–
+		// â€»ã“ã®ãƒ•ãƒ©ã‚°ã¯å‘¼ã°ã‚Œã‚‹ãŸã³ã«åˆæœŸåŒ–ã•ã‚Œã‚‹å¿…è¦ãŒã‚ã‚‹
 		AllSetB = false;
 		AllSetW = false;
 
@@ -41,14 +43,14 @@ public class CheckSettable {
 			for (int y = 0; y < 8; y++) {
 				if (Reversing.status[x][y] == 0) {
 
-					// Î‚ß•ûŒü‚ÌŒÀŠE’l
+					// æ–œã‚æ–¹å‘ã®é™ç•Œå€¤
 					int max;
 
 					// //////////////
-					// •‚É‚Â‚¢‚Ä //
+					// é»’ã«ã¤ã„ã¦ //
 					// //////////////
 					if (Othello.setStatus == -1) {
-						// ¶‚É‚Â‚¢‚Ä
+						// å·¦ã«ã¤ã„ã¦
 						for (int l = 1; l <= x; l++) {
 							if (Reversing.status[x - l][y] == -1) {
 								for (int i = (l - 1); i > 0; i--) {
@@ -62,7 +64,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ‰E‚É‚Â‚¢‚Ä
+						// å³ã«ã¤ã„ã¦
 						for (int r = 1; r <= (7 - x); r++) {
 							if (Reversing.status[x + r][y] == -1) {
 								for (int i = (r - 1); i > 0; i--) {
@@ -76,7 +78,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ã‚É‚Â‚¢‚Ä
+						// ä¸Šã«ã¤ã„ã¦
 						for (int u = 1; u <= y; u++) {
 							if (Reversing.status[x][y - u] == -1) {
 								for (int i = (u - 1); i > 0; i--) {
@@ -90,7 +92,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ‰º‚É‚Â‚¢‚Ä
+						// ä¸‹ã«ã¤ã„ã¦
 						for (int d = 1; d <= (7 - y); d++) {
 							if (Reversing.status[x][y + d] == -1) {
 								for (int i = (d - 1); i > 0; i--) {
@@ -104,7 +106,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ¶ã‚É‚Â‚¢‚Ä
+						// å·¦ä¸Šã«ã¤ã„ã¦
 						if (x >= y) {
 							max = y;
 						} else {
@@ -123,7 +125,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ‰Eã‚É‚Â‚¢‚Ä
+						// å³ä¸Šã«ã¤ã„ã¦
 						if ((7 - x) >= y) {
 							max = y;
 						} else {
@@ -142,7 +144,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ¶‰º‚É‚Â‚¢‚Ä
+						// å·¦ä¸‹ã«ã¤ã„ã¦
 						if (x >= (7 - y)) {
 							max = (7 - y);
 						} else {
@@ -161,7 +163,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ‰E‰º‚É‚Â‚¢‚Ä
+						// å³ä¸‹ã«ã¤ã„ã¦
 						if ((7 - x) >= (7 - y)) {
 							max = (7 - y);
 						} else {
@@ -181,8 +183,8 @@ public class CheckSettable {
 							}
 						}
 
-						// İ’u‰Â”\ƒAƒCƒRƒ“‚É•ÏX
-						// —v:repaint();
+						// è¨­ç½®å¯èƒ½ã‚¢ã‚¤ã‚³ãƒ³ã«å¤‰æ›´
+						// è¦:repaint();
 						if (settableB[x][y]) {
 							Othello.buttonArray[x][y].setIcon(new ImageIcon(Resource.BSPath));
 						} else {
@@ -193,10 +195,10 @@ public class CheckSettable {
 					}
 
 					// //////////////
-					// ”’‚É‚Â‚¢‚Ä //
+					// ç™½ã«ã¤ã„ã¦ //
 					// //////////////
 					if (Othello.setStatus == 1) {
-						// ¶‚É‚Â‚¢‚Ä
+						// å·¦ã«ã¤ã„ã¦
 						for (int l = 1; l <= x; l++) {
 							if (Reversing.status[x - l][y] == 1) {
 								for (int i = (l - 1); i > 0; i--) {
@@ -210,7 +212,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ‰E‚É‚Â‚¢‚Ä
+						// å³ã«ã¤ã„ã¦
 						for (int r = 1; r <= (7 - x); r++) {
 							if (Reversing.status[x + r][y] == 1) {
 								for (int i = (r - 1); i > 0; i--) {
@@ -224,7 +226,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ã‚É‚Â‚¢‚Ä
+						// ä¸Šã«ã¤ã„ã¦
 						for (int u = 1; u <= y; u++) {
 							if (Reversing.status[x][y - u] == 1) {
 								for (int i = (u - 1); i > 0; i--) {
@@ -238,7 +240,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ‰º‚É‚Â‚¢‚Ä
+						// ä¸‹ã«ã¤ã„ã¦
 						for (int d = 1; d <= (7 - y); d++) {
 							if (Reversing.status[x][y + d] == 1) {
 								for (int i = (d - 1); i > 0; i--) {
@@ -252,7 +254,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ¶ã‚É‚Â‚¢‚Ä
+						// å·¦ä¸Šã«ã¤ã„ã¦
 						if (x >= y) {
 							max = y;
 						} else {
@@ -271,7 +273,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ‰Eã‚É‚Â‚¢‚Ä
+						// å³ä¸Šã«ã¤ã„ã¦
 						if ((7 - x) >= y) {
 							max = y;
 						} else {
@@ -290,7 +292,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ¶‰º‚É‚Â‚¢‚Ä
+						// å·¦ä¸‹ã«ã¤ã„ã¦
 						if (x >= (7 - y)) {
 							max = (7 - y);
 						} else {
@@ -309,7 +311,7 @@ public class CheckSettable {
 								// do nothing;
 							}
 						}
-						// ‰E‰º‚É‚Â‚¢‚Ä
+						// å³ä¸‹ã«ã¤ã„ã¦
 						if ((7 - x) >= (7 - y)) {
 							max = (7 - y);
 						} else {
@@ -329,8 +331,8 @@ public class CheckSettable {
 							}
 						}
 
-						// İ’u‰Â”\ƒAƒCƒRƒ“‚É•ÏX
-						// —v:repaint();
+						// è¨­ç½®å¯èƒ½ã‚¢ã‚¤ã‚³ãƒ³ã«å¤‰æ›´
+						// è¦:repaint();
 						if (settableW[x][y]) {
 							Othello.buttonArray[x][y].setIcon(new ImageIcon(Resource.WSPath));
 						} else {

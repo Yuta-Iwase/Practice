@@ -1,28 +1,30 @@
+package Ohello;
+
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 
 
 public class Reversing {
-	// Še–Ú‚Ìó‘Ô
-	// 0‚Í‹óA-1‚Í•A1‚Í”’
+	// å„ç›®ã®çŠ¶æ…‹
+	// 0ã¯ç©ºã€-1ã¯é»’ã€1ã¯ç™½
 	static int[][] status;
-	// İ’u‚µ‚½F‚Ìí—Ş
-	// -1‚Í•A1‚Í”’
+	// è¨­ç½®ã—ãŸè‰²ã®ç¨®é¡
+	// -1ã¯é»’ã€1ã¯ç™½
 	static int set;
-	
+
 	static boolean changed;
-	
+
 	private URL BPath,WPath;
-	
+
 	public Reversing(){
 		new Resource();
-		
+
 		set = 0;
 		changed = false;
 		BPath = Resource.BPath;
 		WPath = Resource.WPath;
-		
+
 		status = new int[8][8];
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
@@ -33,24 +35,24 @@ public class Reversing {
 		status[3][4] =-1;
 		status[4][3] =-1;
 		status[4][4] = 1;
-		
+
 	}
-	
-	
+
+
 	public void reverse(int x ,int y , int set){
 		BPath = getClass().getResource("img/Black.png");
-		WPath = getClass().getResource("img/White.png");	
-		
+		WPath = getClass().getResource("img/White.png");
+
 		changed = false;
 		System.out.println("At Reversing.class:" + " x=" + x + " y=" + y +" set=" + set );
-		// Î‚ß•ûŒü‚ÌŒÀŠE’l
+		// æ–œã‚æ–¹å‘ã®é™ç•Œå€¤
 		int max;
 		////////////////
-		// •‚É‚Â‚¢‚Ä //
+		// é»’ã«ã¤ã„ã¦ //
 		////////////////
 		if(set == -1){
 			status[x][y]=-1;
-			// ¶‚É‚Â‚¢‚Ä
+			// å·¦ã«ã¤ã„ã¦
 			for(int l=1 ; l<=x ; l++){
 				if(status[x-l][y] == -1){
 					for(int i=(l-1);i>0;i--){
@@ -66,7 +68,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ‰E‚É‚Â‚¢‚Ä
+			// å³ã«ã¤ã„ã¦
 			for(int r=1 ; r<=(7-x) ; r++){
 				if(status[x+r][y] == -1){
 					for(int i=(r-1);i>0;i--){
@@ -82,7 +84,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ã‚É‚Â‚¢‚Ä
+			// ä¸Šã«ã¤ã„ã¦
 			for(int u=1 ; u<=y ; u++){
 				if(status[x][y-u] == -1){
 					for(int i=(u-1);i>0;i--){
@@ -98,7 +100,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ‰º‚É‚Â‚¢‚Ä
+			// ä¸‹ã«ã¤ã„ã¦
 			for(int d=1 ; d<=(7-y) ; d++){
 				if(status[x][y+d] == -1){
 					for(int i=(d-1);i>0;i--){
@@ -114,7 +116,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ¶ã‚É‚Â‚¢‚Ä
+			// å·¦ä¸Šã«ã¤ã„ã¦
 			if(x>=y){
 				max = y;
 			}else{
@@ -135,7 +137,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ‰Eã‚É‚Â‚¢‚Ä
+			// å³ä¸Šã«ã¤ã„ã¦
 			if((7-x)>=y){
 				max = y;
 			}else{
@@ -156,7 +158,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ¶‰º‚É‚Â‚¢‚Ä
+			// å·¦ä¸‹ã«ã¤ã„ã¦
 			if(x>=(7-y)){
 				max = (7-y);
 			}else{
@@ -177,7 +179,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ‰E‰º‚É‚Â‚¢‚Ä
+			// å³ä¸‹ã«ã¤ã„ã¦
 		 	if((7-x)>=(7-y)){
 				max = (7-y);
 			}else{
@@ -198,16 +200,16 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			
+
 		}
-			
+
 		////////////////
-		// ”’‚É‚Â‚¢‚Ä //
+		// ç™½ã«ã¤ã„ã¦ //
 		////////////////
 		if(set == 1){
 			status[x][y] = 1;
-			System.out.println("’Ê‰ß");
-			// ¶‚É‚Â‚¢‚Ä
+			System.out.println("é€šé");
+			// å·¦ã«ã¤ã„ã¦
 			for(int l=1 ; l<=x ; l++){
 				if(status[x-l][y] == 1){
 					for(int i=(l-1);i>0;i--){
@@ -223,7 +225,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ‰E‚É‚Â‚¢‚Ä
+			// å³ã«ã¤ã„ã¦
 			for(int r=1 ; r<=(7-x) ; r++){
 				if(status[x+r][y] == 1){
 					for(int i=(r-1);i>0;i--){
@@ -239,7 +241,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ã‚É‚Â‚¢‚Ä
+			// ä¸Šã«ã¤ã„ã¦
 			for(int u=1 ; u<=y ; u++){
 				if(status[x][y-u] == 1){
 					for(int i=(u-1);i>0;i--){
@@ -255,7 +257,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ‰º‚É‚Â‚¢‚Ä
+			// ä¸‹ã«ã¤ã„ã¦
 			for(int d=1 ; d<=(7-y) ; d++){
 				if(status[x][y+d] == 1){
 					for(int i=(d-1);i>0;i--){
@@ -271,7 +273,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ¶ã‚É‚Â‚¢‚Ä
+			// å·¦ä¸Šã«ã¤ã„ã¦
 			if(x>=y){
 				max = y;
 			}else{
@@ -292,7 +294,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ‰Eã‚É‚Â‚¢‚Ä
+			// å³ä¸Šã«ã¤ã„ã¦
 			if((7-x)>=y){
 				max = y;
 			}else{
@@ -313,7 +315,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ¶‰º‚É‚Â‚¢‚Ä
+			// å·¦ä¸‹ã«ã¤ã„ã¦
 			if(x>=(7-y)){
 				max = (7-y);
 			}else{
@@ -334,7 +336,7 @@ public class Reversing {
 					// do nothing;
 				}
 			}
-			// ‰E‰º‚É‚Â‚¢‚Ä
+			// å³ä¸‹ã«ã¤ã„ã¦
 		 	if((7-x)>=(7-y)){
 				max = (7-y);
 			}else{
@@ -356,15 +358,15 @@ public class Reversing {
 				}
 			}
 		}
-		
+
 		if(!changed){
 			status[x][y] = 0;
 			System.out.println("At Reversing.class: didn't reverse");
-			
+
 		}
 		System.out.println("finish reversing");
 
-		
+
 	}
 
 

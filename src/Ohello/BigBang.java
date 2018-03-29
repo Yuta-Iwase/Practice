@@ -1,30 +1,31 @@
+package Ohello;
 
 public class BigBang {
 
 	public BigBang() {
-		// BigBangg—pŒã‘Šèƒ^[ƒ“‚ÉˆÚ‚éB
-		// ‚Ü‚½Ag—p‰ñ”‚ğ1Œ¸‚ç‚·
+		// BigBangä½¿ç”¨å¾Œç›¸æ‰‹ã‚¿ãƒ¼ãƒ³ã«ç§»ã‚‹ã€‚
+		// ã¾ãŸã€ä½¿ç”¨å›æ•°ã‚’1æ¸›ã‚‰ã™
 		switch(Othello.setStatus){
 		case -1:
 			Othello.setStatus =  1;
 			Othello.spB --;
 			break;
-		
+
 		case 1:
 			Othello.setStatus = -1;
 			Othello.spW --;
 			break;
 		}
-		
-		// BigBang Œø‰Ê“à—e
+
+		// BigBang åŠ¹æœå†…å®¹
 		if(Math.random() * 10 < 3.0){
 			for(int x=0 ; x<8 ; x++){
 				for(int y=0 ; y<8 ; y++){
 					Reversing.status[x][y] *= -1;
 				}
-			}	
+			}
 		}
 
-		
+
 	}
 }

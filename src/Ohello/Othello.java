@@ -1,28 +1,36 @@
-import javax.swing.*;
+package Ohello;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Othello extends JFrame implements MouseListener,MouseMotionListener {
 	private static final long serialVersionUID = 1;
 
-	public static exButton buttonArray[][];// ƒ{ƒ^ƒ“—p‚Ì”z—ñ
+	public static exButton buttonArray[][];// ãƒœã‚¿ãƒ³ç”¨ã®é…åˆ—
 	public static JLabel border, bkground, menu, sign, scoreBL, scoreWL, skillImg, SP;
 	public Container c;
-	
+
 	public static ImageIcon blackIcon, whiteIcon, boardIcon;
-	
+
 	public static ImageIcon BigBangIcon, RemoveOneIcon, ChargeIcon, SuperNovaIcon;
 	public static exButton BigBangButton, RemoveOneButton, ChargeButton, SuperNovaButton;
-	
-	// Ÿ‚É”z’u‚·‚éF
-	// -1¨•    1¨”’
+
+	// æ¬¡ã«é…ç½®ã™ã‚‹è‰²
+	// -1â†’é»’    1â†’ç™½
 	public static int setStatus;
-	
-	// “Áê”\—Íg—p‰ñ”
-	// spPresent‚Æ‚ÍAŒ»ƒvƒŒƒCƒ„[‚ÌƒXƒLƒ‹c”
+
+	// ç‰¹æ®Šèƒ½åŠ›ä½¿ç”¨å›æ•°
+	// spPresentã¨ã¯ã€ç¾ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚­ãƒ«æ®‹æ•°
 	public static int spB, spW, spPresent=1;
-	
+
 	Reversing rev;
 	Resource res;
 	Counting cou;
@@ -30,134 +38,134 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 	public Othello() {
 		res = new Resource();
 		cou = new Counting();
-		
-		// ƒEƒBƒ“ƒhƒE‚ğì¬‚·‚é
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// ƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚é‚Æ‚«‚ÉC³‚µ‚­•Â‚¶‚é‚æ‚¤‚Éİ’è‚·‚é
-		setTitle("Othello"); // ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹‚ğİ’è‚·‚é
-		setSize(770, 610); // ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ğİ’è‚·‚é
+
+		// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ä½œæˆã™ã‚‹
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ã¨ãã«ï¼Œæ­£ã—ãé–‰ã˜ã‚‹ã‚ˆã†ã«è¨­å®šã™ã‚‹
+		setTitle("Othello"); // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«ã‚’è¨­å®šã™ã‚‹
+		setSize(770, 610); // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã‚’è¨­å®šã™ã‚‹
 		setLocationRelativeTo(null);
-		setResizable(false);		
-		c = getContentPane(); // ƒtƒŒ[ƒ€‚ÌƒyƒCƒ“‚ğæ“¾‚·‚é
-		c.setLayout(null); // ©“®ƒŒƒCƒAƒEƒg‚Ìİ’è‚ğs‚í‚È‚¢
+		setResizable(false);
+		c = getContentPane(); // ãƒ•ãƒ¬ãƒ¼ãƒ ã®ãƒšã‚¤ãƒ³ã‚’å–å¾—ã™ã‚‹
+		c.setLayout(null); // è‡ªå‹•ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®è¨­å®šã‚’è¡Œã‚ãªã„
 		c.setBackground(new Color(0,0,0));
 
-		// ƒAƒCƒRƒ“‚Ìİ’è
+		// ã‚¢ã‚¤ã‚³ãƒ³ã®è¨­å®š
 		whiteIcon = new ImageIcon("");
 		blackIcon = new ImageIcon("");
 		boardIcon = new ImageIcon("");
-		
-		// “Áê”\—ÍƒAƒCƒRƒ“‚Ìİ’è
+
+		// ç‰¹æ®Šèƒ½åŠ›ã‚¢ã‚¤ã‚³ãƒ³ã®è¨­å®š
 		BigBangIcon = new ImageIcon("");
 		RemoveOneIcon = new ImageIcon("");
 		ChargeIcon = new ImageIcon("");
 		SuperNovaIcon = new ImageIcon("");
 
 
-		// ƒ{ƒ^ƒ“(ƒ}ƒX)‚Ì¶¬
-		buttonArray = new exButton[8][8];// ƒ{ƒ^ƒ“‚Ì”z—ñ‚ğ‚TŒÂì¬‚·‚é[0]‚©‚ç[4]‚Ü‚Åg‚¦‚é
+		// ãƒœã‚¿ãƒ³(ãƒã‚¹)ã®ç”Ÿæˆ
+		buttonArray = new exButton[8][8];// ãƒœã‚¿ãƒ³ã®é…åˆ—ã‚’ï¼•å€‹ä½œæˆã™ã‚‹[0]ã‹ã‚‰[4]ã¾ã§ä½¿ãˆã‚‹
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				buttonArray[i][j] = new exButton(boardIcon);// ƒ{ƒ^ƒ“‚ÉƒAƒCƒRƒ“‚ğİ’è‚·‚é
-				c.add(buttonArray[i][j]);// ƒyƒCƒ“‚É“\‚è•t‚¯‚é
-				buttonArray[i][j].setBounds((i+1) * 60, (j+1)*60, 60, 60);// ƒ{ƒ^ƒ“‚Ì‘å‚«‚³‚ÆˆÊ’u‚ğİ’è‚·‚éD(xÀ•WCyÀ•W,x‚Ì•,y‚Ì•j
-				buttonArray[i][j].addMouseListener(this);// ƒ{ƒ^ƒ“‚ğƒ}ƒEƒX‚Å‚³‚í‚Á‚½‚Æ‚«‚É”½‰‚·‚é‚æ‚¤‚É‚·‚é
-				buttonArray[i][j].addMouseMotionListener(this);// ƒ{ƒ^ƒ“‚ğƒ}ƒEƒX‚Å“®‚©‚»‚¤‚Æ‚µ‚½‚Æ‚«‚É”½‰‚·‚é‚æ‚¤‚É‚·‚é
-				buttonArray[i][j].setActionCommand(Integer.toString(i));// ƒ{ƒ^ƒ“‚É”z—ñ‚Ìî•ñ‚ğ•t‰Á‚·‚éiƒlƒbƒgƒ[ƒN‚ğ‰î‚µ‚ÄƒIƒuƒWƒFƒNƒg‚ğ¯•Ê‚·‚é‚½‚ßj
+				buttonArray[i][j] = new exButton(boardIcon);// ãƒœã‚¿ãƒ³ã«ã‚¢ã‚¤ã‚³ãƒ³ã‚’è¨­å®šã™ã‚‹
+				c.add(buttonArray[i][j]);// ãƒšã‚¤ãƒ³ã«è²¼ã‚Šä»˜ã‘ã‚‹
+				buttonArray[i][j].setBounds((i+1) * 60, (j+1)*60, 60, 60);// ãƒœã‚¿ãƒ³ã®å¤§ãã•ã¨ä½ç½®ã‚’è¨­å®šã™ã‚‹ï¼(xåº§æ¨™ï¼Œyåº§æ¨™,xã®å¹…,yã®å¹…ï¼‰
+				buttonArray[i][j].addMouseListener(this);// ãƒœã‚¿ãƒ³ã‚’ãƒã‚¦ã‚¹ã§ã•ã‚ã£ãŸã¨ãã«åå¿œã™ã‚‹ã‚ˆã†ã«ã™ã‚‹
+				buttonArray[i][j].addMouseMotionListener(this);// ãƒœã‚¿ãƒ³ã‚’ãƒã‚¦ã‚¹ã§å‹•ã‹ãã†ã¨ã—ãŸã¨ãã«åå¿œã™ã‚‹ã‚ˆã†ã«ã™ã‚‹
+				buttonArray[i][j].setActionCommand(Integer.toString(i));// ãƒœã‚¿ãƒ³ã«é…åˆ—ã®æƒ…å ±ã‚’ä»˜åŠ ã™ã‚‹ï¼ˆãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ã‚’ä»‹ã—ã¦ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è­˜åˆ¥ã™ã‚‹ãŸã‚ï¼‰
 			}
 		}
-		
-		// BigBangƒ{ƒ^ƒ“‚Ìİ’è
-		// setActionCommand‚ÍƒRƒ}ƒ“ƒh‚ÌID
+
+		// BigBangãƒœã‚¿ãƒ³ã®è¨­å®š
+		// setActionCommandã¯ã‚³ãƒãƒ³ãƒ‰ã®ID
 		BigBangButton = new exButton(BigBangIcon);
 		c.add(BigBangButton);
 		BigBangButton.setBounds(590, 200, 173, 51);
 		BigBangButton.addMouseListener(this);
 		BigBangButton.addMouseMotionListener(this);
 		BigBangButton.setActionCommand(Integer.toString(8*8 + 1));
-		
-		// RemoveOneƒ{ƒ^ƒ“‚Ìİ’è
+
+		// RemoveOneãƒœã‚¿ãƒ³ã®è¨­å®š
 		RemoveOneButton = new exButton(RemoveOneIcon);
 		c.add(RemoveOneButton);
 		RemoveOneButton.setBounds(590, 260, 173, 51);
 		RemoveOneButton.addMouseListener(this);
 		RemoveOneButton.addMouseMotionListener(this);
 		RemoveOneButton.setActionCommand(Integer.toString(8*8 + 2));
-		
-		// Chargeƒ{ƒ^ƒ“‚Ìİ’è
+
+		// Chargeãƒœã‚¿ãƒ³ã®è¨­å®š
 		ChargeButton = new exButton(ChargeIcon);
 		c.add(ChargeButton);
 		ChargeButton.setBounds(590, 320, 173, 51);
 		ChargeButton.addMouseListener(this);
 		ChargeButton.addMouseMotionListener(this);
 		ChargeButton.setActionCommand(Integer.toString(8*8 + 3));
-		
-		// SuperNovaƒ{ƒ^ƒ“‚Ìİ’è
+
+		// SuperNovaãƒœã‚¿ãƒ³ã®è¨­å®š
 		SuperNovaButton = new exButton(SuperNovaIcon);
 		c.add(SuperNovaButton);
 		SuperNovaButton.setBounds(590, 380, 173, 51);
 		SuperNovaButton.addMouseListener(this);
 		SuperNovaButton.addMouseMotionListener(this);
 		SuperNovaButton.setActionCommand(Integer.toString(8*8 + 3));
-		
-		// dØ‚èü‚Ìİ’è
+
+		// ä»•åˆ‡ã‚Šç·šã®è¨­å®š
 		Icon imgBo = new ImageIcon("img/border.png");
 		border = new JLabel(imgBo);
 		c.add(border);
 		border.setBounds(0, 0, 600, 600);
-		
-		// ”’‚ÌƒRƒ}”
+
+		// ç™½ã®ã‚³ãƒæ•°
 		scoreWL = new JLabel("");
 		scoreWL.setText("<html><font size=\"8\" face=\"Monotype Corsiva\" color=\"black\">" + Counting.scoreW + "</font></html>");
 		c.add(scoreWL);
 		scoreWL.setBounds(665, 35, 40, 30);
-		
-		// •‚ÌƒRƒ}”
+
+		// é»’ã®ã‚³ãƒæ•°
 		scoreBL = new JLabel("");
 		scoreBL.setText("<html><font size=\"8\" face=\"Monotype Corsiva\" color=\"white\">" + Counting.scoreB + "</font></html>");
 		c.add(scoreBL);
 		scoreBL.setBounds(665, 110, 40, 30);
-		
-		//ƒXƒLƒ‹c””’l‚Ì•`Êİ’è
+
+		//ã‚¹ã‚­ãƒ«æ®‹æ•°æ•°å€¤ã®æå†™è¨­å®š
 		SP = new JLabel("");
 		SP.setText("<html><b><font face=\"Monotype Corsiva\" color=\"white\"  style=\"font-size : 80pt;\">" + spPresent + "</font></b></html>");
 		c.add(SP);
 		SP.setBounds(672, 465, 148, 80);
-		
-		//ƒXƒLƒ‹c”‰æ‘œ‚Ìİ’è
+
+		//ã‚¹ã‚­ãƒ«æ®‹æ•°ç”»åƒã®è¨­å®š
 		skillImg = new JLabel("");
 		c.add(skillImg);
 		skillImg.setBounds(590, 465, 148, 80);
-		
-		// ‰A—zˆó‚Ìİ’è
+
+		// é™°é™½å°ã®è¨­å®š
 		sign = new JLabel("");
 		c.add(sign);
 		sign.setBounds(600, 10, 150, 150);
-		
-		// ‰E‘¤‚Ìƒo[‚Ìİ’è
+
+		// å³å´ã®ãƒãƒ¼ã®è¨­å®š
 		menu = new JLabel("");
 		c.add(menu);
 		menu.setBounds(580, -10, 200, 600);
-		
-		// ”wŒi‚Ìİ’è
+
+		// èƒŒæ™¯ã®è¨­å®š
 		Icon imgBa = new ImageIcon("img/bkground.png");
 		bkground = new JLabel(imgBa);
 		c.add(bkground);
 		bkground.setBounds(0, 0, 800, 600);
-		
-		
-		// ƒZƒbƒgƒXƒe[ƒ^ƒX‚ğ‰Šú‰»‚·‚é
-		// -1‚Å•A1‚Å”’
+
+
+		// ã‚»ãƒƒãƒˆã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’åˆæœŸåŒ–ã™ã‚‹
+		// -1ã§é»’ã€1ã§ç™½
 		setStatus = -1;
-		// “Áê”\—Íg—p‰ñ”‚Ì‰Šú‰»
+		// ç‰¹æ®Šèƒ½åŠ›ä½¿ç”¨å›æ•°ã®åˆæœŸåŒ–
 		spB = 1;
 		spW = 1;
-		// ReversingƒNƒ‰ƒX‚ğ’è‹`
+		// Reversingã‚¯ãƒ©ã‚¹ã‚’å®šç¾©
 		rev = new Reversing();
 	}
-	
+
 	public static void main(String[] args) {
 		Othello gui = new Othello();
-		
+
 		gui.setVisible(true);
 		gui.res.changeWhite(3, 3);
 		gui.res.changeBlack(3, 4);
@@ -174,41 +182,41 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 		new CheckSettable().checkSettable();
 		gui.repaint();
 	}
-	
-	// ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚½‚Æ‚«‚Ìˆ—
+
+	// ãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®å‡¦ç†
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("click");
-		// ƒNƒŠƒbƒN‚µ‚½ƒIƒuƒWƒFƒNƒg‚ğ“¾‚éDŒ^‚ªˆá‚¤‚Ì‚ÅƒLƒƒƒXƒg‚·‚é
+		// ã‚¯ãƒªãƒƒã‚¯ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å¾—ã‚‹ï¼å‹ãŒé•ã†ã®ã§ã‚­ãƒ£ã‚¹ãƒˆã™ã‚‹
 		exButton theButton = (exButton) e.getComponent();
-		// theIcon‚É‚ÍCŒ»İ‚Ìƒ{ƒ^ƒ“‚Éİ’è‚³‚ê‚½ƒAƒCƒRƒ“‚ª“ü‚é
+		// theIconã«ã¯ï¼Œç¾åœ¨ã®ãƒœã‚¿ãƒ³ã«è¨­å®šã•ã‚ŒãŸã‚¢ã‚¤ã‚³ãƒ³ãŒå…¥ã‚‹
 		Icon theIcon = theButton.getIcon();
-		
+
 		if(RemoveOne.RemoveOneFlagB || RemoveOne.RemoveOneFlagW){
-			// RemoveOne”­“®’†‚Ìs“®
+			// RemoveOneç™ºå‹•ä¸­ã®è¡Œå‹•
 			for(int i=0; i<8 ; i++){
 				for(int j=0 ; j<8 ;j++){
 					if(e.getSource() == buttonArray[i][j]){
-						// ƒtƒ‰ƒO‚ğfalse‚É–ß‚·
+						// ãƒ•ãƒ©ã‚°ã‚’falseã«æˆ»ã™
 						RemoveOne.RemoveOneFlagB = false;
 						RemoveOne.RemoveOneFlagW = false;
-						// ‘I‘ğ‚µ‚½À•W‚ÌƒRƒ}‚ğæ‚èœ‚­
+						// é¸æŠã—ãŸåº§æ¨™ã®ã‚³ãƒã‚’å–ã‚Šé™¤ã
 						Reversing.status[i][j] = 0;
-						// Ä•`Ê
+						// å†æå†™
 						new Refresh().refresh();
-						// ‘Šè‚Éƒ^[ƒ“‚ğ‰ñ‚·
-						// ƒ^[ƒ“‘—‚è”»’è‚ÍŒã‚É‚ ‚é‚©‚ç‘åä•v
+						// ç›¸æ‰‹ã«ã‚¿ãƒ¼ãƒ³ã‚’å›ã™
+						// ã‚¿ãƒ¼ãƒ³é€ã‚Šåˆ¤å®šã¯å¾Œã«ã‚ã‚‹ã‹ã‚‰å¤§ä¸ˆå¤«
 						setStatus *= -1;
 					}
 				}
 			}
 		}else if(SuperNova.SuperNovaFlag){
-			// SuperNova”­“®’†‚Ìs“®
+			// SuperNovaç™ºå‹•ä¸­ã®è¡Œå‹•
 			for(int i=0; i<8 ; i++){
 				for(int j=0 ; j<8 ;j++){
 					if(e.getSource() == buttonArray[i][j]){
-						// ƒtƒ‰ƒO‚ğfalse‚É–ß‚·
+						// ãƒ•ãƒ©ã‚°ã‚’falseã«æˆ»ã™
 						SuperNova.SuperNovaFlag = false;
-						// ‘I‘ğ‚µ‚½À•W‚ÌƒRƒ}‚Æ‚»‚ÌüˆÍ‚ğ”½“]‚³‚¹‚é
+						// é¸æŠã—ãŸåº§æ¨™ã®ã‚³ãƒã¨ãã®å‘¨å›²ã‚’åè»¢ã•ã›ã‚‹
 						for(int k=-1 ; k<2 ; k++){
 							for(int l=-1 ; l<2 ; l++){
 								try{
@@ -219,33 +227,33 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 								}
 							}
 						}
-						// Ä•`Ê
+						// å†æå†™
 						new Refresh().refresh();
-						// ‘Šè‚Éƒ^[ƒ“‚ğ‰ñ‚·
-						// ƒ^[ƒ“‘—‚è”»’è‚ÍŒã‚É‚ ‚é‚©‚ç‘åä•v
+						// ç›¸æ‰‹ã«ã‚¿ãƒ¼ãƒ³ã‚’å›ã™
+						// ã‚¿ãƒ¼ãƒ³é€ã‚Šåˆ¤å®šã¯å¾Œã«ã‚ã‚‹ã‹ã‚‰å¤§ä¸ˆå¤«
 						setStatus *= -1;
 					}
 				}
 			}
 		}else if(e.getSource() == BigBangButton && 1 <= spPresent ){
-			//BigBangƒ{ƒ^ƒ“‚ğ‘I‘ğ‚µ‚½ê‡‚Ì‘€ì‚ğ‹Lq
+			//BigBangãƒœã‚¿ãƒ³ã‚’é¸æŠã—ãŸå ´åˆã®æ“ä½œã‚’è¨˜è¿°
 			System.out.println("BigBang clicked");
 			new BigBang();
 			new Refresh().refresh();
 			new CheckSettable().checkSettable();
 		}else if(e.getSource() == ChargeButton && 1 <= spPresent ){
-			//Chargeƒ{ƒ^ƒ“‚ğ‘I‘ğ‚µ‚½ê‡‚Ì‘€ì‚ğ‹Lq
+			//Chargeãƒœã‚¿ãƒ³ã‚’é¸æŠã—ãŸå ´åˆã®æ“ä½œã‚’è¨˜è¿°
 			System.out.println("Charge clicked");
 			new Charge();
 			new Refresh().refresh();
 			new CheckSettable().checkSettable();
 		}else if(e.getSource() == RemoveOneButton && 1 <= spPresent){
-			//RemoveOneƒ{ƒ^ƒ“‚ğ‘I‘ğ‚µ‚½ê‡‚Ì‘€ì‚ğ‹Lq
+			//RemoveOneãƒœã‚¿ãƒ³ã‚’é¸æŠã—ãŸå ´åˆã®æ“ä½œã‚’è¨˜è¿°
 			System.out.println("RemoveOne clicked");
 			new RemoveOne();
 			new Refresh().refresh();
 		}else if(e.getSource() == SuperNovaButton && 1 <= spPresent){
-			//RemoveOneƒ{ƒ^ƒ“‚ğ‘I‘ğ‚µ‚½ê‡‚Ì‘€ì‚ğ‹Lq
+			//RemoveOneãƒœã‚¿ãƒ³ã‚’é¸æŠã—ãŸå ´åˆã®æ“ä½œã‚’è¨˜è¿°
 			System.out.println("SuperNova clicked");
 			new SuperNova();
 			new Refresh().refresh();
@@ -258,8 +266,8 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 		}else if(e.getSource() == SuperNovaButton && 1 > spPresent){
 			// do nothing
 		}else{
-			// •’Ê‚ÉƒRƒ}‚ğƒNƒŠƒbƒN‚µ‚½‚Æ‚«‚Ìˆ—
-		
+			// æ™®é€šã«ã‚³ãƒã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®å‡¦ç†
+
 			int x=0,y=0;
 			for(int i=0; i<8 ; i++){
 				for(int j=0 ; j<8 ;j++){
@@ -269,9 +277,9 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 					}
 				}
 			}
-		
+
 			int set;
-		
+
 			if(Reversing.status[x][y] == 0 && setStatus == -1){
 				res.changeBlack(x, y);
 				set = -1;
@@ -280,9 +288,9 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 				if(!Reversing.changed){
 					System.out.println("return boardIcon");
 					theButton.setIcon(boardIcon);
-					setStatus = -1; 
+					setStatus = -1;
 				}
-			}else if (Reversing.status[x][y] == 0 && setStatus == 1) {// ƒAƒCƒRƒ“‚ªboardIcon‚Æ“¯‚¶‚È‚ç
+			}else if (Reversing.status[x][y] == 0 && setStatus == 1) {// ã‚¢ã‚¤ã‚³ãƒ³ãŒboardIconã¨åŒã˜ãªã‚‰
 				res.changeWhite(x, y);
 				set = 1;
 				rev.reverse(x, y, set);
@@ -290,16 +298,16 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 				if(!Reversing.changed){
 					System.out.println("return boardIcon");
 					theButton.setIcon(boardIcon);
-					setStatus = 1; 
+					setStatus = 1;
 				}
 			} else if (theIcon.equals(whiteIcon)) {
 				System.out.println("whiteIcon is clicked");
 			} else {
 				System.out.println("blackIcon is clicked");
-			}		
+			}
 		}
-		
-		// ƒQ[ƒ€I—¹”»’è(ƒ^[ƒ“‘—‚èİ’è)
+
+		// ã‚²ãƒ¼ãƒ çµ‚äº†åˆ¤å®š(ã‚¿ãƒ¼ãƒ³é€ã‚Šè¨­å®š)
 		new CheckSettable().checkSettable();
 		if (!CheckSettable.AllSetB) {
 			System.out.println("Pass!");
@@ -317,8 +325,8 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 				System.out.println("GameSet!!");
 			}
 		}
-		
-		// ƒXƒLƒ‹c”‰æ‘œ‚ÌƒAƒCƒRƒ“Ø‚è‘Ö‚¦
+
+		// ã‚¹ã‚­ãƒ«æ®‹æ•°ç”»åƒã®ã‚¢ã‚¤ã‚³ãƒ³åˆ‡ã‚Šæ›¿ãˆ
 		if(Othello.setStatus == 1){
 			res.setSkillW();
 			spPresent = spW;
@@ -327,33 +335,33 @@ public class Othello extends JFrame implements MouseListener,MouseMotionListener
 			spPresent = spB;
 		}
 		SP.setText("<html><b><font face=\"Monotype Corsiva\" color=\"white\"  style=\"font-size : 80pt;\">" + spPresent + "</font></b></html>");
-		
-		//Ÿƒ^[ƒ“‚ÌƒvƒŒƒCƒ„[‚ÌƒXƒLƒ‹’i”‚É‚æ‚Á‚ÄƒXƒLƒ‹•\¦‚ğ•Ï‚¦‚é
+
+		//æ¬¡ã‚¿ãƒ¼ãƒ³ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚­ãƒ«æ®µæ•°ã«ã‚ˆã£ã¦ã‚¹ã‚­ãƒ«è¡¨ç¤ºã‚’å¤‰ãˆã‚‹
 		if(spPresent <= 0){
 			res.setCannotUseAbility();
 		}else{
 			res.setSpecialAbilityIcon();
 		}
-		
+
 		cou.count();
-		repaint();// ‰æ–Ê‚ÌƒIƒuƒWƒFƒNƒg‚ğ•`‰æ‚µ’¼‚·
+		repaint();// ç”»é¢ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»ã—ç›´ã™
 	}
 
-	public void mouseEntered(MouseEvent e) {// ƒ}ƒEƒX‚ªƒIƒuƒWƒFƒNƒg‚É“ü‚Á‚½‚Æ‚«‚Ìˆ—
+	public void mouseEntered(MouseEvent e) {// ãƒã‚¦ã‚¹ãŒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å…¥ã£ãŸã¨ãã®å‡¦ç†
 	}
 
-	public void mouseExited(MouseEvent e) {// ƒ}ƒEƒX‚ªƒIƒuƒWƒFƒNƒg‚©‚ço‚½‚Æ‚«‚Ìˆ—
+	public void mouseExited(MouseEvent e) {// ãƒã‚¦ã‚¹ãŒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰å‡ºãŸã¨ãã®å‡¦ç†
 	}
 
-	public void mousePressed(MouseEvent e) {// ƒ}ƒEƒX‚ÅƒIƒuƒWƒFƒNƒg‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ìˆ—iƒNƒŠƒbƒN‚Æ‚Ìˆá‚¢‚É’ˆÓj
+	public void mousePressed(MouseEvent e) {// ãƒã‚¦ã‚¹ã§ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æŠ¼ã—ãŸã¨ãã®å‡¦ç†ï¼ˆã‚¯ãƒªãƒƒã‚¯ã¨ã®é•ã„ã«æ³¨æ„ï¼‰
 	}
 
-	public void mouseReleased(MouseEvent e) {// ƒ}ƒEƒX‚Å‰Ÿ‚µ‚Ä‚¢‚½ƒIƒuƒWƒFƒNƒg‚ğ—£‚µ‚½‚Æ‚«‚Ìˆ—
+	public void mouseReleased(MouseEvent e) {// ãƒã‚¦ã‚¹ã§æŠ¼ã—ã¦ã„ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é›¢ã—ãŸã¨ãã®å‡¦ç†
 	}
 
-	public void mouseDragged(MouseEvent e) {// ƒ}ƒEƒX‚ÅƒIƒuƒWƒFƒNƒg‚Æ‚ğƒhƒ‰ƒbƒO‚µ‚Ä‚¢‚é‚Æ‚«‚Ìˆ—
+	public void mouseDragged(MouseEvent e) {// ãƒã‚¦ã‚¹ã§ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ã‚’ãƒ‰ãƒ©ãƒƒã‚°ã—ã¦ã„ã‚‹ã¨ãã®å‡¦ç†
 	}
 
-	public void mouseMoved(MouseEvent e) {// ƒ}ƒEƒX‚ªƒIƒuƒWƒFƒNƒgã‚ÅˆÚ“®‚µ‚½‚Æ‚«‚Ìˆ—
+	public void mouseMoved(MouseEvent e) {// ãƒã‚¦ã‚¹ãŒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä¸Šã§ç§»å‹•ã—ãŸã¨ãã®å‡¦ç†
 	}
 }
