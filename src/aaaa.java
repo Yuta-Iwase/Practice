@@ -3,12 +3,13 @@ import java.util.ArrayList;
 public class aaaa {
 
 	public static void main(String[] args) {
-		int times = 10000;
+		int times = 1000000;
 		long stamp = System.currentTimeMillis();
-		ArrayList<Integer> aa = new ArrayList<>();
+		ArrayList<Integer> aa = new ArrayList<>(times);
+//		ArrayList<Integer> aa = new ArrayList<>();
 		int[] bb = new int[times];
 
-		for(int t=0;t<1000;t++) {
+		for(int t=0;t<10;t++) {
 			for(int i=0;i<times;i++) {
 				aa.add(i);
 			}
